@@ -1,36 +1,58 @@
 <template>
-  <v-list
-    dense
-    nav
-  >
-    <v-list-item
-      v-for="item in items"
-      :key="item.title"
-      link
-      :to="item.to"
+  <v-list>
+    <v-list-group
+      v-for="(item, i) in items"
+      :key="i"
+      v-model="item.active"
+      :prepend-icon="item.icon"
+      no-action
     >
-      <v-list-item-icon>
-        <v-icon>{{ item.icon }}</v-icon>
-      </v-list-item-icon>
+      <template v-slot:activator>
+        <v-list-item-content>
+          <v-list-item-title v-text="item.title" />
+        </v-list-item-content>
+      </template>
 
-      <v-list-item-content>
-        <v-list-item-title>{{ item.title }}</v-list-item-title>
-      </v-list-item-content>
-    </v-list-item>
+      <v-list-item
+        v-for="subItem in item.subItems"
+        :key="subItem.title"
+      >
+        <v-list-item-content>
+          <v-list-item-title v-text="subItem.title" />
+        </v-list-item-content>
+      </v-list-item>
+    </v-list-group>
   </v-list>
 </template>
 
 <script>
 export default {
-  data () {
-    return {
-      items: [
-        { title: 'Dashboard', icon: 'mdi-view-dashboard', to: '/'},
-        { title: 'Photos', icon: 'mdi-image', to: '/'},
-        { title: 'About', icon: 'mdi-help-box', to: '/about' },
-      ],
-      right: null,
-    }
-  }
+  data: () => ({
+    items: [
+      {
+        icon: 'mdi-home',
+        active: true,
+        subItems: [
+          { title: 'Dashboard', to: '/' },
+          { title: 'About', to: '/about' }
+        ],
+        title: 'Home',
+      },
+      {
+        icon: 'mdi-silverware-fork-knife',
+        subItems: [
+          { title: 'Breakfast & brunch' },
+          { title: 'New American' },
+          { title: 'Sushi' },
+        ],
+        title: 'Dining',
+      },
+      {
+        icon: 'mdi-school',
+        subItems: [{ title: 'List Item' }],
+        title: 'Education',
+      }
+    ],
+  })
 }
 </script>
