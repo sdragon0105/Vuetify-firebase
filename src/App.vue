@@ -6,12 +6,11 @@
       dark
     >
       <v-app-bar-nav-icon @click="drawer = !drawer" />
-      <v-toolbar-title>Page title</v-toolbar-title>
+      <site-title :title="title" />
       <v-spacer />
 
       <v-btn
         icon
-        to="/about"
       >
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
@@ -55,33 +54,33 @@
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
-
       <v-divider />
+      <site-menu />
     </v-navigation-drawer>
 
     <v-main>
       <router-view />
     </v-main>
 
-    <v-footer
-      app
-      color="primary"
-      dark
-      absolute
-    >
-      <v-spacer />
-      <div>&copy; {{ new Date().getFullYear() }}</div>
-    </v-footer>
+    <site-footer
+      :footer="footer"
+    />
   </v-app>
 </template>
 
 <script>
+import SiteTitle from '@/views/site/title'
+import SiteFooter from '@/views/site/footer'
+import SiteMenu from '@/views/site/menu'
 
 export default {
   name: 'App',
+  components: { SiteTitle, SiteFooter, SiteMenu },
   data () {
     return {
-      drawer: false
+      drawer: false,
+      title: "Main Page",
+      footer: "@main.com"
     }
   }
 };
