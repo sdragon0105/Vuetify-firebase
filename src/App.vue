@@ -5,7 +5,7 @@
       color="primary"
       dark
     >
-      <v-app-bar-nav-icon />
+      <v-app-bar-nav-icon @click="drawer = !drawer" />
       <v-toolbar-title>Page title</v-toolbar-title>
       <v-spacer />
 
@@ -41,6 +41,24 @@
       </v-menu>
     </v-app-bar>
 
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+    >
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="text-h6">
+            Application
+          </v-list-item-title>
+          <v-list-item-subtitle>
+            subtext
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider />
+    </v-navigation-drawer>
+
     <v-main>
       <router-view />
     </v-main>
@@ -61,5 +79,10 @@
 
 export default {
   name: 'App',
+  data () {
+    return {
+      drawer: false
+    }
+  }
 };
 </script>
