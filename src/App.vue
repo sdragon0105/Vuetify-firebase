@@ -11,8 +11,21 @@
 
       <v-btn
         icon
+        @click="save"
       >
         <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+      <v-btn
+        icon
+        @click="read"
+      >
+        <v-icon>mdi-check</v-icon>
+      </v-btn>
+      <v-btn
+        icon
+        @click="readOne"
+      >
+        <v-icon>mdi-check</v-icon>
       </v-btn>
       <v-menu
         left
@@ -82,6 +95,28 @@ export default {
       title: "Main Page",
       footer: "@main.com"
     }
+  },
+  mounted () {
+    console.log(this.$firebase)
+  },
+  methods: {
+    save () {
+      console.log('save@@@')
+      this.$firebase.database().ref().child('abcd').set({
+        title: 'abcd', text: 'ttttt'
+      })
+    },
+    read () {
+      this.$firebase.database().ref().child('abcd').on('value', (sn)=>{
+        console.log(sn)
+        console.log(sn.val())
+      })
+    },
+    async readOne () {
+      const sn = await this.$firebase.database().ref().child('abcd').once('value')
+      console.log(sn.val())
+
+    }
   }
-};
+}
 </script>
